@@ -1,3 +1,36 @@
+<!--
+  ==================== MuJoCo 家居场景模型 ====================
+  场景名称: home_scene (家庭场景)
+  版本: 3.1 - 优化布局版 (合理门框连接)
+  适用于: MuJoCo 3.4.0
+
+  场景布局概览（垂直视图）:
+
+    厨房(10×8m) ←门→ 客厅(12×10m) ←门→ 主卧(8×8m)
+         ↓门                              ↓门
+    书房(6×5m)                      客浴(4×3m)
+         ↓门
+    主浴室(4×3m)
+         ↓门
+    储藏室(4×3m)
+
+  房间位置坐标:
+  - 客厅: X: -6到6, Y: -5到5 (中心)
+  - 厨房: X: -16到-6, Y: -4到4 (左侧)
+  - 主卧: X: 6到14, Y: -4到4 (右侧)
+  - 书房: X: -16到-10, Y: -9到-4 (厨房下方)
+  - 主浴室: X: -16到-12, Y: -13到-10 (书房下方)
+  - 客浴: X: 10到14, Y: -8到-5 (主卧下方)
+  - 储藏室: X: -16到-12, Y: -16到-13 (主浴下方)
+
+  总面积: 约320平方米
+
+  门框说明:
+  - 所有门框宽度: 1.0米
+  - 门框高度: 2.2米
+  - 门框结构: 左门柱 + 右门柱 + 顶部横梁
+-->
+
 <mujoco model="home_scene">
   <compiler angle="degree" coordinate="local" inertiafromgeom="true"/>
 
@@ -5,8 +38,8 @@
     <flag contact="enable" />
   </option>
 
+  <!-- 材质定义 -->
   <asset>
-    <!-- Materials for different objects -->
     <material name="floor" rgba="0.8 0.8 0.7 1"/>
     <material name="wall" rgba="0.95 0.95 0.9 1"/>
     <material name="wood" rgba="0.6 0.4 0.2 1"/>
@@ -16,279 +49,464 @@
     <material name="ceramic" rgba="0.9 0.9 0.95 1"/>
     <material name="plastic" rgba="0.2 0.2 0.2 1"/>
     <material name="glass" rgba="0.8 0.9 1.0 0.5"/>
+    <material name="door_frame" rgba="0.5 0.35 0.2 1"/>
   </asset>
 
   <worldbody>
-    <!-- Softer Lighting -->
-    <light diffuse=".3 .3 .3" pos="0 0 4" dir="0 0 -1" castshadow="false"/>
-    <light diffuse=".2 .2 .2" pos="4 4 3" dir="-1 -1 -1" castshadow="false"/>
-    <light diffuse=".2 .2 .2" pos="-4 -4 3" dir="1 1 -1" castshadow="false"/>
+    <!-- 照明系统 -->
+    <light diffuse=".3 .3 .3" pos="0 0 6" dir="0 0 -1" castshadow="false"/>
+    <light diffuse=".2 .2 .2" pos="8 8 4" dir="-1 -1 -1" castshadow="false"/>
+    <light diffuse=".2 .2 .2" pos="-8 -8 4" dir="1 1 -1" castshadow="false"/>
+    <light diffuse=".2 .2 .2" pos="8 -8 4" dir="-1 1 -1" castshadow="false"/>
+    <light diffuse=".2 .2 .2" pos="-8 8 4" dir="1 -1 -1" castshadow="false"/>
 
-    <!-- Ground Floor -->
-    <geom name="floor" type="plane" size="15 15 0.1" material="floor" contype="1" conaffinity="1"/>
+    <!-- 地面 -->
+    <geom name="floor" type="plane" size="45 45 0.1" material="floor" contype="1" conaffinity="1"/>
 
-    <!-- ==================== LIVING ROOM (Center, Expanded) ==================== -->
-    <!-- Living room: 7m x 6m -->
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████              客厅 (LIVING ROOM) - 12m×10m      ████
+      ██████████████████████████████████████████████████████████████
+    -->
 
-    <!-- Living Room Walls - Complete enclosure with doorways -->
-    <body name="living_wall_back" pos="0 3 1.2">
-      <geom type="box" size="3.5 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <!-- 客厅墙体 -->
+    <body name="living_wall_back" pos="0 5 1.2">
+      <geom type="box" size="6 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="living_wall_front" pos="0 -3 1.2">
-      <geom type="box" size="3.5 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <body name="living_wall_front" pos="0 -5 1.2">
+      <geom type="box" size="6 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Left wall with 2m doorway to kitchen (doorway from Y=-1 to Y=1) -->
-    <body name="living_wall_left_upper" pos="-3.5 2 1.2">
-      <geom type="box" size="0.1 1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <!-- 左墙：1米宽门洞通往厨房(Y=-0.5到0.5) -->
+    <body name="living_wall_left_upper" pos="-6 2.75 1.2">
+      <geom type="box" size="0.1 2.25 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="living_wall_left_lower" pos="-3.5 -2 1.2">
-      <geom type="box" size="0.1 1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <body name="living_wall_left_lower" pos="-6 -2.75 1.2">
+      <geom type="box" size="0.1 2.25 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Right wall with 2m doorway to bedroom (doorway from Y=-1 to Y=1) -->
-    <body name="living_wall_right_upper" pos="3.5 2 1.2">
-      <geom type="box" size="0.1 1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <!-- 右墙：1米宽门洞通往主卧(Y=-0.5到0.5) -->
+    <body name="living_wall_right_upper" pos="6 2.75 1.2">
+      <geom type="box" size="0.1 2.25 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="living_wall_right_lower" pos="3.5 -2 1.2">
-      <geom type="box" size="0.1 1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <body name="living_wall_right_lower" pos="6 -2.75 1.2">
+      <geom type="box" size="0.1 2.25 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Simple door frame to kitchen -->
-    <body name="kitchen_door_frame_top" pos="-3.5 0 2.0">
-      <geom type="box" size="0.08 1.0 0.08" material="wood" mass="3" contype="1" conaffinity="1"/>
+    <!-- 门框1：客厅到厨房 -->
+    <body name="door_frame_living_kitchen_left" pos="-6.05 0.55 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_living_kitchen_right" pos="-6.05 -0.55 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_living_kitchen_top" pos="-6.05 0 2.2">
+      <geom type="box" size="0.05 0.6 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Simple door frame to bedroom -->
-    <body name="bedroom_door_frame_top" pos="3.5 0 2.0">
-      <geom type="box" size="0.08 1.0 0.08" material="wood" mass="3" contype="1" conaffinity="1"/>
+    <!-- 门框2：客厅到主卧 -->
+    <body name="door_frame_living_bedroom_left" pos="6.05 0.55 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_living_bedroom_right" pos="6.05 -0.55 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_living_bedroom_top" pos="6.05 0 2.2">
+      <geom type="box" size="0.05 0.6 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Sofa - Facing TV (backrest toward positive Y) -->
-    <body name="sofa" pos="0 0.5 0.2">
-      <!-- Sofa base -->
-      <geom type="box" size="1.2 0.5 0.2" pos="0 0 0" material="fabric" mass="30" contype="1" conaffinity="1"/>
-      <!-- Sofa backrest - now at positive Y -->
-      <geom type="box" size="1.2 0.1 0.3" pos="0 0.4 0.3" material="fabric" mass="10" contype="1" conaffinity="1"/>
-      <!-- Left armrest -->
-      <geom type="box" size="0.1 0.5 0.25" pos="-1.1 0 0.25" material="fabric" mass="5" contype="1" conaffinity="1"/>
-      <!-- Right armrest -->
-      <geom type="box" size="0.1 0.5 0.25" pos="1.1 0 0.25" material="fabric" mass="5" contype="1" conaffinity="1"/>
+    <!-- 客厅家具 -->
+    <body name="sofa" pos="0 1 0.2">
+      <geom type="box" size="1.5 0.6 0.2" material="fabric" mass="40" contype="1" conaffinity="1"/>
+      <geom type="box" size="1.5 0.1 0.35" pos="0 0.5 0.35" material="fabric" mass="15" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.1 0.6 0.3" pos="-1.4 0 0.3" material="fabric" mass="6" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.1 0.6 0.3" pos="1.4 0 0.3" material="fabric" mass="6" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Coffee Table - In front of sofa -->
-    <body name="coffee_table" pos="0 -0.8 0.2">
-      <!-- Table top -->
-      <geom type="box" size="0.6 0.4 0.02" pos="0 0 0.18" material="wood" mass="15" contype="1" conaffinity="1"/>
-      <!-- Legs -->
-      <geom type="cylinder" size="0.03 0.18" pos="-0.5 -0.35 0" material="wood" mass="1" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.03 0.18" pos="0.5 -0.35 0" material="wood" mass="1" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.03 0.18" pos="-0.5 0.35 0" material="wood" mass="1" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.03 0.18" pos="0.5 0.35 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+    <body name="coffee_table" pos="0 -1.2 0.2">
+      <geom type="box" size="0.8 0.5 0.02" pos="0 0 0.18" material="wood" mass="20" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.18" pos="-0.7 -0.45 0" material="wood" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.18" pos="0.7 -0.45 0" material="wood" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.18" pos="-0.7 0.45 0" material="wood" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.18" pos="0.7 0.45 0" material="wood" mass="1.5" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- TV Cabinet - Against front wall -->
-    <body name="tv_cabinet" pos="0 -2.5 0.3">
-      <geom type="box" size="1.0 0.25 0.3" material="darkwood" mass="40" contype="1" conaffinity="1"/>
+    <body name="tv_cabinet" pos="0 -4.3 0.35">
+      <geom type="box" size="1.5 0.3 0.35" material="darkwood" mass="50" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- TV on cabinet -->
-    <body name="tv" pos="0 -2.5 0.75">
-      <geom type="box" size="0.6 0.05 0.35" material="plastic" mass="8" contype="1" conaffinity="1"/>
+    <body name="tv" pos="0 -4.3 0.85">
+      <geom type="box" size="0.8 0.05 0.5" material="plastic" mass="12" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Vase on coffee table -->
-    <body name="vase_living" pos="0.3 -0.8 0.42">
-      <geom type="cylinder" size="0.06 0.15" material="ceramic" mass="1" contype="1" conaffinity="1"/>
+    <body name="armchair_left" pos="-3.5 1 0.2">
+      <geom type="box" size="0.5 0.5 0.2" material="fabric" mass="20" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.5 0.1 0.3" pos="0 0.4 0.3" material="fabric" mass="8" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Trash bin in living room corner -->
-    <body name="trash_living" pos="2.8 2.5 0.15">
-      <geom type="cylinder" size="0.12 0.15" material="plastic" mass="1" contype="1" conaffinity="1"/>
+    <body name="armchair_right" pos="3.5 1 0.2">
+      <geom type="box" size="0.5 0.5 0.2" material="fabric" mass="20" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.5 0.1 0.3" pos="0 0.4 0.3" material="fabric" mass="8" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Rug in living room -->
-    <body name="rug" pos="0 -0.3 0.01">
-      <geom type="box" size="1.5 1.2 0.005" rgba="0.6 0.3 0.2 1" mass="2" contype="0" conaffinity="0"/>
+    <body name="bookshelf_living" pos="-4 4.4 1.0">
+      <geom type="box" size="0.8 0.25 1.0" material="wood" mass="60" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- ==================== MOBILE ROBOT ==================== -->
-    <!-- Simple wheeled robot in living room -->
+    <body name="plant_large_living" pos="5 4 0.4">
+      <geom type="cylinder" size="0.15 0.15" material="ceramic" mass="5" contype="1" conaffinity="1"/>
+      <geom type="sphere" size="0.25" pos="0 0 0.35" rgba="0.2 0.6 0.2 1" mass="1" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="rug" pos="0 -0.5 0.01">
+      <geom type="box" size="2.5 2.0 0.005" rgba="0.6 0.3 0.2 1" mass="3" contype="0" conaffinity="0"/>
+    </body>
+
+    <!-- 移动机器人 -->
     <body name="robot" pos="1.5 0 0.15">
       <freejoint/>
-      <!-- Main cylindrical chassis -->
       <geom name="robot_body" type="cylinder" size="0.2 0.15" material="metal" mass="15" contype="1" conaffinity="1"/>
-      <!-- Sensor module on top -->
       <geom name="robot_sensor" type="cylinder" size="0.08 0.05" pos="0 0 0.2" rgba="0.2 0.2 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
-      <!-- Front indicator -->
       <geom name="robot_front" type="box" size="0.05 0.02 0.08" pos="0.18 0 0.08" rgba="0.1 0.5 1.0 1" mass="0.1" contype="1" conaffinity="1"/>
-      <!-- Left wheel -->
       <geom name="wheel_left" type="cylinder" size="0.04 0.02" pos="0 0.18 -0.05" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.5" contype="1" conaffinity="1"/>
-      <!-- Right wheel -->
       <geom name="wheel_right" type="cylinder" size="0.04 0.02" pos="0 -0.18 -0.05" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.5" contype="1" conaffinity="1"/>
-      <!-- Back caster wheel -->
       <geom name="caster_back" type="sphere" size="0.03" pos="-0.15 0 -0.12" rgba="0.3 0.3 0.3 1" mass="0.2" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- ==================== KITCHEN (Left side, Expanded) ==================== -->
-    <!-- Kitchen: 6m x 5m, connected to living room through doorway at Y=-1 to Y=1 -->
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████              厨房 (KITCHEN) - 10m×8m           ████
+      ██████████████████████████████████████████████████████████████
+    -->
 
-    <!-- Kitchen Walls - Three sides enclosed, open to living room -->
-    <body name="kitchen_wall_left" pos="-6.5 0 1.2">
-      <geom type="box" size="0.1 2.5 1.2" material="wall" contype="1" conaffinity="1"/>
+    <!-- 厨房墙体 -->
+    <body name="kitchen_wall_left" pos="-16 0 1.2">
+      <geom type="box" size="0.1 4 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="kitchen_wall_back" pos="-5 2.5 1.2">
+    <body name="kitchen_wall_back" pos="-11 4 1.2">
+      <geom type="box" size="5 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 前墙：1米宽门洞通往书房(X=-13到-12) -->
+    <body name="kitchen_wall_front_left" pos="-14.5 -4 1.2">
       <geom type="box" size="1.5 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="kitchen_wall_front" pos="-5 -2.5 1.2">
-      <geom type="box" size="1.5 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    <body name="kitchen_wall_front_right" pos="-9 -4 1.2">
+      <geom type="box" size="3 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- No right wall - connects to living room through doorway -->
-
-    <!-- Kitchen Counter/Cabinet - Along back wall -->
-    <body name="kitchen_counter" pos="-5.6 1.8 0.45">
-      <geom type="box" size="0.7 0.35 0.45" material="wood" mass="50" contype="1" conaffinity="1"/>
-      <!-- Counter top -->
-      <geom type="box" size="0.7 0.4 0.02" pos="0 0 0.47" material="metal" mass="10" contype="1" conaffinity="1"/>
+    <!-- 门框3：厨房到书房 -->
+    <body name="door_frame_kitchen_study_left" pos="-13.05 -4.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_kitchen_study_right" pos="-12.05 -4.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_kitchen_study_top" pos="-12.55 -4.05 2.2">
+      <geom type="box" size="0.6 0.05 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Refrigerator - Corner -->
-    <body name="refrigerator" pos="-6 0.8 0.85">
-      <geom type="box" size="0.35 0.35 0.85" material="metal" mass="80" contype="1" conaffinity="1"/>
+    <!-- 厨房设施 -->
+    <body name="kitchen_counter" pos="-13 3.2 0.45">
+      <geom type="box" size="2.5 0.4 0.45" material="wood" mass="80" contype="1" conaffinity="1"/>
+      <geom type="box" size="2.5 0.45 0.03" pos="0 0 0.48" material="metal" mass="15" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Dining Table - Center of kitchen -->
-    <body name="dining_table" pos="-5 -0.3 0.37">
-      <!-- Table top -->
-      <geom type="box" size="0.8 0.7 0.03" pos="0 0 0.34" material="wood" mass="20" contype="1" conaffinity="1"/>
-      <!-- Central pedestal -->
-      <geom type="cylinder" size="0.12 0.35" material="wood" mass="10" contype="1" conaffinity="1"/>
+    <body name="sink" pos="-11.5 3.2 0.93">
+      <geom type="box" size="0.4 0.35 0.15" material="metal" mass="15" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Dining Chairs - More spaced out, facing table -->
-    <body name="chair1" pos="-5 0.6 0.22">
-      <!-- Seat -->
-      <geom type="box" size="0.22 0.22 0.03" pos="0 0 0.2" material="wood" mass="4" contype="1" conaffinity="1"/>
-      <!-- Backrest - facing outward (positive Y) -->
-      <geom type="box" size="0.22 0.03 0.25" pos="0 0.19 0.42" material="wood" mass="2" contype="1" conaffinity="1"/>
-      <!-- Legs -->
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
+    <body name="stove" pos="-13.5 3.2 0.96">
+      <geom type="box" size="0.4 0.35 0.06" rgba="0.2 0.2 0.2 1" mass="25" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="chair2" pos="-5 -1.2 0.22">
-      <geom type="box" size="0.22 0.22 0.03" pos="0 0 0.2" material="wood" mass="4" contype="1" conaffinity="1"/>
-      <!-- Backrest - facing outward (negative Y) -->
-      <geom type="box" size="0.22 0.03 0.25" pos="0 -0.19 0.42" material="wood" mass="2" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
+    <body name="refrigerator" pos="-15.2 3 1.0">
+      <geom type="box" size="0.4 0.4 1.0" material="metal" mass="120" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="chair3" pos="-5.9 -0.3 0.22">
-      <geom type="box" size="0.22 0.22 0.03" pos="0 0 0.2" material="wood" mass="4" contype="1" conaffinity="1"/>
-      <geom type="box" size="0.03 0.22 0.25" pos="-0.19 0 0.42" material="wood" mass="2" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
+    <body name="dining_table" pos="-11 -0.5 0.37">
+      <geom type="box" size="1.0 0.9 0.03" pos="0 0 0.34" material="wood" mass="35" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.15 0.35" material="wood" mass="15" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="chair4" pos="-4.1 -0.3 0.22">
-      <geom type="box" size="0.22 0.22 0.03" pos="0 0 0.2" material="wood" mass="4" contype="1" conaffinity="1"/>
-      <geom type="box" size="0.03 0.22 0.25" pos="0.19 0 0.42" material="wood" mass="2" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 -0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="-0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
-      <geom type="cylinder" size="0.02 0.2" pos="0.17 0.17 0" material="wood" mass="0.5" contype="1" conaffinity="1"/>
+    <body name="dining_chair_1" pos="-11 0.6 0.25">
+      <geom type="box" size="0.25 0.25 0.03" pos="0 0 0.22" material="wood" mass="8" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.25 0.05 0.25" pos="0 0.13 0.25" material="wood" mass="5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Kitchen trash bin -->
-    <body name="trash_kitchen" pos="-6 -2.1 0.2">
-      <geom type="cylinder" size="0.15 0.2" material="plastic" mass="1.5" contype="1" conaffinity="1"/>
+    <body name="dining_chair_2" pos="-11 -1.6 0.25">
+      <geom type="box" size="0.25 0.25 0.03" pos="0 0 0.22" material="wood" mass="8" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.25 0.05 0.25" pos="0 -0.13 0.25" material="wood" mass="5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- ==================== BEDROOM (Right side, Expanded) ==================== -->
-    <!-- Bedroom: 5m x 5m, connected to living room through doorway at Y=-1 to Y=1 -->
+    <body name="dining_chair_3" pos="-12.3 -0.5 0.25">
+      <geom type="box" size="0.25 0.25 0.03" pos="0 0 0.22" material="wood" mass="8" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.05 0.25 0.25" pos="-0.13 0 0.25" material="wood" mass="5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+    </body>
 
-    <!-- Bedroom Walls - Three sides enclosed, open to living room -->
-    <body name="bedroom_wall_right" pos="6.0 0 1.2">
+    <body name="dining_chair_4" pos="-9.7 -0.5 0.25">
+      <geom type="box" size="0.25 0.25 0.03" pos="0 0 0.22" material="wood" mass="8" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.05 0.25 0.25" pos="0.13 0 0.25" material="wood" mass="5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 -0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="-0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.02 0.25" pos="0.2 0.2 0" material="wood" mass="1" contype="1" conaffinity="1"/>
+    </body>
+
+  
+
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████              主卧室 (BEDROOM) - 8m×8m          ████
+      ██████████████████████████████████████████████████████████████
+    -->
+
+    <!-- 卧室墙体 -->
+    <body name="bedroom_wall_right" pos="14 0 1.2">
+      <geom type="box" size="0.1 4 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="bedroom_wall_back" pos="10 4 1.2">
+      <geom type="box" size="4 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 前墙：1米宽门洞通往客浴(X=11到12) -->
+    <body name="bedroom_wall_front_left" pos="8.5 -4 1.2">
+      <geom type="box" size="2.5 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="bedroom_wall_front_right" pos="13 -4 1.2">
+      <geom type="box" size="1 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 门框4：主卧到客浴 -->
+    <body name="door_frame_bedroom_bath_left" pos="11.05 -4.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_bedroom_bath_right" pos="12.05 -4.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_bedroom_bath_top" pos="11.55 -4.05 2.2">
+      <geom type="box" size="0.6 0.05 0.05" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 卧室家具 -->
+    <body name="bed" pos="10 2.8 0.35">
+      <geom type="box" size="0.9 1.2 0.25" pos="0 0 0.1" material="fabric" mass="60" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.95 1.25 0.15" pos="0 0 -0.1" material="darkwood" mass="45" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.95 0.08 0.6" pos="0 1.17 0.45" material="darkwood" mass="20" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="wardrobe" pos="13.2 1 1.1">
+      <geom type="box" size="0.4 1.2 1.1" material="wood" mass="150" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="nightstand_left" pos="8.3 2.8 0.35">
+      <geom type="box" size="0.3 0.3 0.35" material="wood" mass="15" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="lamp_left" pos="8.3 2.8 0.75">
+      <geom type="cylinder" size="0.06 0.02" material="metal" mass="0.6" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.015 0.2" pos="0 0 0.2" material="metal" mass="0.4" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.1 0.12" pos="0 0 0.42" material="fabric" mass="0.3" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="dresser" pos="10 -3.3 0.5">
+      <geom type="box" size="1.0 0.35 0.5" material="wood" mass="60" contype="1" conaffinity="1"/>
+    </body>
+
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████              书房 (STUDY) - 6m×5m              ████
+      ██████████████████████████████████████████████████████████████
+      简化配置：只保留基本办公家具
+    -->
+
+    <!-- 书房墙体 -->
+    <body name="study_wall_left" pos="-16 -6.5 1.2">
       <geom type="box" size="0.1 2.5 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="bedroom_wall_back" pos="4.75 2.5 1.2">
+    <body name="study_wall_right" pos="-10 -6.5 1.2">
+      <geom type="box" size="0.1 2.5 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 后墙：1米宽门洞通往主浴室(X=-13.5到-12.5) -->
+    <body name="study_wall_back_left" pos="-14.75 -9 1.2">
       <geom type="box" size="1.25 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <body name="bedroom_wall_front" pos="4.75 -2.5 1.2">
+    <body name="study_wall_back_right" pos="-11.25 -9 1.2">
       <geom type="box" size="1.25 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- No left wall - connects to living room through doorway -->
-
-    <!-- Bed - Against back wall, headboard toward wall -->
-    <body name="bed" pos="5.0 1.6 0.3">
-      <!-- Mattress -->
-      <geom type="box" size="0.75 1.0 0.2" pos="0 0 0.1" material="fabric" mass="40" contype="1" conaffinity="1"/>
-      <!-- Bed frame base -->
-      <geom type="box" size="0.8 1.05 0.12" pos="0 0 -0.08" material="darkwood" mass="30" contype="1" conaffinity="1"/>
-      <!-- Headboard - now toward back wall (positive Y) -->
-      <geom type="box" size="0.8 0.08 0.5" pos="0 0.97 0.4" material="darkwood" mass="15" contype="1" conaffinity="1"/>
+    <!-- 门框5：书房到主浴室 -->
+    <body name="door_frame_study_bath_left" pos="-13.55 -9.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_study_bath_right" pos="-12.55 -9.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_study_bath_top" pos="-13.05 -9.05 2.2">
+      <geom type="box" size="0.6 0.05 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Wardrobe - Side wall with more clearance -->
-    <body name="wardrobe" pos="5.5 -1.2 1.0">
-      <geom type="box" size="0.35 0.9 1.0" material="wood" mass="100" contype="1" conaffinity="1"/>
+    <!-- 书房家具（简化） -->
+    <body name="office_desk" pos="-14.5 -7 0.37">
+      <geom type="box" size="1.0 0.5 0.03" pos="0 0 0.34" material="wood" mass="40" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.35" pos="-0.9 -0.45 0" material="metal" mass="3" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.35" pos="0.9 -0.45 0" material="metal" mass="3" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Nightstand - Beside bed -->
-    <body name="nightstand" pos="4.0 1.6 0.3">
-      <geom type="box" size="0.25 0.25 0.3" material="wood" mass="10" contype="1" conaffinity="1"/>
+    <body name="office_chair" pos="-14 -6.3 0.25">
+      <geom type="cylinder" size="0.22 0.03" pos="0 0 0.22" material="fabric" mass="5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.25" material="metal" mass="4" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Lamp on nightstand -->
-    <body name="lamp" pos="4.0 1.6 0.65">
-      <!-- Lamp base -->
-      <geom type="cylinder" size="0.06 0.02" pos="0 0 0" material="metal" mass="0.5" contype="1" conaffinity="1"/>
-      <!-- Lamp pole -->
-      <geom type="cylinder" size="0.012 0.18" pos="0 0 0.18" material="metal" mass="0.3" contype="1" conaffinity="1"/>
-      <!-- Lamp shade -->
-      <geom type="cylinder" size="0.09 0.1" pos="0 0 0.38" material="fabric" mass="0.2" contype="1" conaffinity="1"/>
+    <body name="bookshelf_study" pos="-11.3 -6.5 1.0">
+      <geom type="box" size="0.3 1.5 1.0" material="wood" mass="80" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Bedroom trash bin -->
-    <body name="trash_bedroom" pos="5.5 -2.1 0.15">
-      <geom type="cylinder" size="0.12 0.15" material="plastic" mass="0.8" contype="1" conaffinity="1"/>
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████           主浴室 (MAIN BATHROOM) - 4m×3m       ████
+      ██████████████████████████████████████████████████████████████
+      简化配置：只保留基本卫浴设施
+    -->
+
+    <!-- 主浴室墙体 -->
+    <body name="bath1_wall_left" pos="-16 -10.9 1.2">
+      <geom type="box" size="0.1 2.2 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Small plant on nightstand -->
-    <body name="plant_bedroom" pos="3.8 1.8 0.63">
-      <!-- Pot -->
-      <geom type="cylinder" size="0.07 0.06" pos="0 0 0" material="ceramic" mass="0.5" contype="1" conaffinity="1"/>
-      <!-- Plant (simplified) -->
-      <geom type="sphere" size="0.1" pos="0 0 0.12" rgba="0.2 0.6 0.2 1" mass="0.1" contype="1" conaffinity="1"/>
+    <body name="bath1_wall_right" pos="-10.05 -11 1.2">
+      <geom type="box" size="0.1 2 1.2" material="wall" contype="1" conaffinity="1"/>
     </body>
 
-    <!-- Small decorative item - vase on dresser area -->
-    <body name="vase_bedroom" pos="5.5 0.5 0.55">
-      <geom type="cylinder" size="0.05 0.12" material="ceramic" mass="0.8" contype="1" conaffinity="1"/>
+    <!-- 后墙：1米宽门洞通往储藏室(X=-14.5到-13.5) -->
+    <body name="bath1_wall_back_left" pos="-15.25 -13 1.2">
+      <geom type="box" size="0.75 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="bath1_wall_back_right" pos="-11.75 -13 1.2">
+      <geom type="box" size="1.7 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 门框6：主浴室到储藏室 -->
+    <body name="door_frame_bath1_storage_left" pos="-14.55 -13.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_bath1_storage_right" pos="-13.55 -13.05 1.1">
+      <geom type="box" size="0.05 0.05 1.1" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+    <body name="door_frame_bath1_storage_top" pos="-14.05 -13.05 2.2">
+      <geom type="box" size="0.6 0.05 0.05" material="door_frame" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 主浴室设施（简化） -->
+    <body name="toilet_1" pos="-15.2 -12 0.2">
+      <geom type="box" size="0.2 0.3 0.2" material="ceramic" mass="20" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.18 0.15" pos="0 0 0.35" material="ceramic" mass="8" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="sink_1" pos="-13 -12 0.4">
+      <geom type="box" size="0.6 0.3 0.4" material="wood" mass="30" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.3 0.25 0.1" pos="0 0 0.45" material="ceramic" mass="10" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="shower_1" pos="-15.2 -10.8 0.9">
+      <geom type="box" size="0.4 0.4 0.9" rgba="0.9 0.9 0.9 0.3" mass="20" contype="1" conaffinity="1"/>
+    </body>
+
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████          客用浴室 (GUEST BATHROOM) - 4m×3m     ████
+      ██████████████████████████████████████████████████████████████
+      简化配置：基本卫浴设施
+    -->
+
+    <!-- 客浴墙体 -->
+    <body name="bath2_wall_left" pos="10.05 -6 1.2">
+      <geom type="box" size="0.1 2 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="bath2_wall_right" pos="14 -6 1.2">
+      <geom type="box" size="0.1 2 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="bath2_wall_back" pos="12 -8 1.2">
+      <geom type="box" size="2 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 客浴设施（简化） -->
+    <body name="toilet_2" pos="13.2 -7.2 0.2">
+      <geom type="box" size="0.2 0.3 0.2" material="ceramic" mass="20" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.18 0.15" pos="0 0 0.35" material="ceramic" mass="8" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="sink_2" pos="11 -7.2 0.4">
+      <geom type="box" size="0.6 0.3 0.4" material="wood" mass="30" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.3 0.25 0.1" pos="0 0 0.45" material="ceramic" mass="10" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="shower_2" pos="13.2 -5.8 0.9">
+      <geom type="box" size="0.4 0.4 0.9" rgba="0.9 0.9 0.9 0.3" mass="20" contype="1" conaffinity="1"/>
+    </body>
+
+    <!--
+      ██████████████████████████████████████████████████████████████
+      ████            储藏室 (STORAGE) - 4m×3m            ████
+      ██████████████████████████████████████████████████████████████
+      简化配置：基本储物设施
+    -->
+
+    <!-- 储藏室墙体 -->
+    <body name="storage_wall_left" pos="-16 -14.5 1.2">
+      <geom type="box" size="0.1 1.5 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="storage_wall_right" pos="-12 -14.5 1.2">
+      <geom type="box" size="0.1 1.5 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="storage_wall_back" pos="-14 -16 1.2">
+      <geom type="box" size="2 0.1 1.2" material="wall" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 储藏室设施（简化） -->
+    <body name="storage_shelf_1" pos="-15.5 -14.5 1.0">
+      <geom type="box" size="0.3 1.2 1.0" material="metal" mass="60" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="storage_shelf_2" pos="-12.5 -14.5 1.0">
+      <geom type="box" size="0.3 1.2 1.0" material="metal" mass="60" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="storage_box_1" pos="-14 -15.2 0.25">
+      <geom type="box" size="0.35 0.3 0.25" rgba="0.7 0.5 0.3 1" mass="10" contype="1" conaffinity="1"/>
     </body>
 
   </worldbody>
 
-  <!-- Reduced headlight brightness -->
   <visual>
     <headlight ambient="0.3 0.3 0.3" diffuse="0.4 0.4 0.4" specular="0.05 0.05 0.05"/>
   </visual>
-
 
 </mujoco>
