@@ -118,6 +118,174 @@
       <geom type="box" size="0.05 0.6 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
+<<<<<<< HEAD
+    <!-- 客厅家具 - 重新设计 -->
+    <!-- 大桌子 -->
+    <body name="large_table" pos="0 0 0.4">
+      <!-- 桌面 -->
+      <geom type="box" size="1.5 1.0 0.03" pos="0 0 0.38" material="wood" mass="35" contype="1" conaffinity="1"/>
+      <!-- 桌腿 -->
+      <geom type="cylinder" size="0.06 0.38" pos="-1.4 -0.45 0" material="wood" mass="3" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.06 0.38" pos="1.4 -0.45 0" material="wood" mass="3" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.06 0.38" pos="-1.4 0.45 0" material="wood" mass="3" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.06 0.38" pos="1.4 0.45 0" material="wood" mass="3" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 大沙发 -->
+    <body name="large_sofa" pos="0 2.5 0.3">
+      <!-- 沙发底座框架 -->
+      <geom type="box" size="1.8 0.6 0.15" pos="0 0 -0.05" material="darkwood" mass="35" contype="1" conaffinity="1"/>
+      <!-- 沙发坐垫 - 分为4部分，更柔软的颜色 -->
+      <geom type="box" size="0.43 0.58 0.12" pos="-1.4 0 0.12" rgba="0.4 0.35 0.5 1" mass="10" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.5 0.58 0.12" pos="-0.45 0 0.12" rgba="0.35 0.3 0.45 1" mass="10" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.5 0.58 0.12" pos=" 0.45 0 0.12" rgba="0.4 0.35 0.5 1" mass="10" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.43 0.58 0.12" pos="1.4 0 0.12" rgba="0.35 0.3 0.45 1" mass="10" contype="1" conaffinity="1"/>
+      <!-- 沙发靠背 - 多段软垫，更柔软外观 -->
+      <geom type="box" size="1.8 0.08 0.3" pos="0 0.4 0.29" rgba="0.35 0.3 0.45 1" mass="12" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.43 0.06 0.25" pos="-0.64 0.4 0.31" rgba="0.4 0.35 0.5 1" mass="3.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.43 0.06 0.25" pos="-0.21 0.4 0.31" rgba="0.35 0.3 0.45 1" mass="3.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.43 0.06 0.25" pos="0.21 0.4 0.31" rgba="0.4 0.35 0.5 1" mass="3.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.43 0.06 0.25" pos="0.64 0.4 0.31" rgba="0.35 0.3 0.45 1" mass="3.5" contype="1" conaffinity="1"/>
+      <!-- 左扶手 - 更多细节带软垫，更柔软 -->
+      <geom type="box" size="0.08 0.6 0.22" pos="-1.8 0 0.21" rgba="0.35 0.3 0.45 1" mass="5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.1 0.58 0.1" pos="1.8 0 0.38" rgba="0.4 0.35 0.5 1" mass="2.5" contype="1" conaffinity="1"/>
+      <!-- 右扶手 - 更多细节带软垫，更柔软 -->
+      <geom type="box" size="0.08 0.6 0.22" pos="1.8 0 0.21" rgba="0.35 0.3 0.45 1" mass="5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.1 0.58 0.1" pos="1.8 0 0.38" rgba="0.4 0.35 0.5 1" mass="2.5" contype="1" conaffinity="1"/>
+      <!-- 沙发腿 - 4个木质腿 -->
+      <geom type="cylinder" size="0.05 0.1" pos="-1.7 -0.5 -0.2" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.05 0.1" pos="1.7 -0.5 -0.2" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.05 0.1" pos="-1.7 0.5 -0.2" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.05 0.1" pos="1.7 0.5 -0.2" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 电视柜 - 增强细节 -->
+    <body name="tv_cabinet" pos="0 -4.3 0.35">
+      <!-- 主柜体 -->
+      <geom type="box" size="1.5 0.3 0.35" material="darkwood" mass="40" contype="1" conaffinity="1"/>
+      <!-- 左抽屉 -->
+      <geom type="box" size="0.35 0.025 0.12" pos="-0.55 0 0.28" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.1" pos="-0.4 0 0.28" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 中间抽屉 -->
+      <geom type="box" size="0.35 0.025 0.12" pos="0 0 0.28" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.1" pos="0.15 0 0.28" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 右抽屉 -->
+      <geom type="box" size="0.35 0.025 0.12" pos="0.55 0 0.28" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.1" pos="0.7 0 0.28" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 顶部表面装饰条 -->
+      <geom type="box" size="1.51 0.31 0.01" pos="0 0 0.355" rgba="0.5 0.35 0.2 1" mass="0.8" contype="1" conaffinity="1"/>
+      <!-- 底部基座装饰条 -->
+      <geom type="box" size="1.51 0.31 0.01" pos="0 0 -0.005" rgba="0.5 0.35 0.2 1" mass="0.8" contype="1" conaffinity="1"/>
+      <!-- 装饰侧面板 -->
+      <geom type="box" size="0.02 0.28 0.3" pos="-0.74 0 0.35" rgba="0.4 0.25 0.15 1" mass="0.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.02 0.28 0.3" pos="0.74 0 0.35" rgba="0.4 0.25 0.15 1" mass="0.5" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 柜子上的电视 -->
+    <body name="tv" pos="0 -4.3 0.85">
+      <!-- 电视框架 -->
+      <geom type="box" size="0.8 0.05 0.8" material="plastic" mass="10" contype="1" conaffinity="1"/>
+      <!-- 电视屏幕 -->
+      <geom type="box" size="0.9 0.01 0.45" pos="0 0.05 0.6" rgba="0.1 0.15 0.3 1" mass="2" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 客厅柜子 - 上半空心，下半抽屉 -->
+    <!-- 左柜子 -->
+    <body name="cabinet_left" pos="-2.5 4.5 0.4">
+      <!-- 上半部分 - 空心框架 -->
+      <!-- 顶板 -->
+      <geom type="box" size="0.6 0.4 0.05" pos="0 0 1" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 左板 -->
+      <geom type="box" size="0.02 0.4 0.4" pos="-0.6 0 0.6" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 右板 -->
+      <geom type="box" size="0.02 0.4 0.4" pos="0.6 0 0.6" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 玻璃门（前面） - 面向电视 -->
+      <geom type="box" size="0.58 0.01 0.4" pos="0 0.4 0.6" rgba="0.8 0.9 1.0 0.4" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.58 0.01 0.4" pos="0 -0.37 0.6" rgba="0.8 0.9 1.0 0.4" mass="1.5" contype="1" conaffinity="1"/>
+      <!-- 顶部的装饰物品 -->
+      <geom type="cylinder" size="0.05 0.08" pos="0.1 -0.3 0.45" rgba="0.9 0.7 0.3 1" mass="0.2" contype="1" conaffinity="1"/>
+      <geom type="sphere" size="0.04" pos="-0.1 -0.3 0.4" rgba="0.8 0.5 0.6 1" mass="0.15" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.06 0.04 0.06" pos="0 -0.3 0.45" rgba="0.7 0.4 0.5 1" mass="0.1" contype="1" conaffinity="1"/>
+      
+      <!-- 下半部分 - 抽屉柜 -->
+      <!-- 柜体 -->
+      <geom type="box" size="0.6 0.4 0.4" material="darkwood" mass="25" contype="1" conaffinity="1"/>
+      <!-- 左抽屉 -->
+      <geom type="box" size="0.28 0.03 0.15" pos="-0.15 0 0.2" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.03 0.13" pos="0 0 0.2" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 右抽屉 -->
+      <geom type="box" size="0.28 0.03 0.15" pos="0.15 0 0.2" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.03 0.13" pos="0.3 0 0.2" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 顶部装饰条 -->
+      <geom type="box" size="0.61 0.41 0.01" pos="0 0 0.41" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 右柜子 -->
+    <body name="cabinet_right" pos="2.5 4 0.4">
+      <geom type="box" size="0.6 0.4 0.05" pos="0 0 1" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 左板 -->
+      <geom type="box" size="0.02 0.4 0.4" pos="-0.6 0 0.6" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 右板 -->
+      <geom type="box" size="0.02 0.4 0.4" pos="0.6 0 0.6" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 玻璃门（前面） - 面向电视 -->
+      <geom type="box" size="0.58 0.01 0.4" pos="0 0.4 0.6" rgba="0.8 0.9 1.0 0.4" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.58 0.01 0.4" pos="0 -0.37 0.6" rgba="0.8 0.9 1.0 0.4" mass="1.5" contype="1" conaffinity="1"/>
+      <!-- 顶部的装饰物品 -->
+      <geom type="cylinder" size="0.05 0.08" pos="0.1 -0.3 0.45" rgba="0.9 0.7 0.3 1" mass="0.2" contype="1" conaffinity="1"/>
+      <geom type="sphere" size="0.04" pos="-0.1 -0.3 0.4" rgba="0.8 0.5 0.6 1" mass="0.15" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.06 0.04 0.06" pos="0 -0.3 0.45" rgba="0.7 0.4 0.5 1" mass="0.1" contype="1" conaffinity="1"/>
+      
+      <!-- 下半部分 - 抽屉柜 -->
+      <!-- 柜体 -->
+      <geom type="box" size="0.6 0.4 0.4" material="darkwood" mass="25" contype="1" conaffinity="1"/>
+      <!-- 左抽屉 -->
+      <geom type="box" size="0.28 0.03 0.15" pos="-0.15 0 0.2" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.03 0.13" pos="0 0 0.2" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 右抽屉 -->
+      <geom type="box" size="0.28 0.03 0.15" pos="0.15 0 0.2" rgba="0.45 0.3 0.2 1" mass="1.5" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.03 0.13" pos="0.3 0 0.2" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 顶部装饰条 -->
+      <geom type="box" size="0.61 0.41 0.01" pos="0 0 0.41" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 三个花盆 -->
+    <!-- 花盆1 - 左侧 -->
+    <body name="plant_1" pos="-3.5 3 0.12">
+      <geom type="cylinder" size="0.12 0.12" material="ceramic" mass="3" contype="1" conaffinity="1"/>
+      <geom type="sphere" size="0.2" pos="0 0 0.28" rgba="0.2 0.6 0.2 1" mass="0.8" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 花盆2 - 中间 -->
+    <body name="plant_2" pos="0 4 0.12">
+      <geom type="cylinder" size="0.12 0.12" material="ceramic" mass="3" contype="1" conaffinity="1"/>
+      <geom type="sphere" size="0.2" pos="0 0 0.28" rgba="0.3 0.7 0.3 1" mass="0.8" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 花盆3 - 右侧 -->
+    <body name="plant_3" pos="3.5 3 0.12">
+      <geom type="cylinder" size="0.12 0.12" material="ceramic" mass="3" contype="1" conaffinity="1"/>
+      <geom type="sphere" size="0.2" pos="0 0 0.28" rgba="0.25 0.5 0.25 1" mass="0.8" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 原凳子 -->
+    <body name="dog_bed" pos="-2 -1.5 0.05">
+      <!-- 底座 -->
+      <geom type="cylinder" size="0.4 0.5" rgba="0.6 0.4 0.3 1" mass="2" contype="1" conaffinity="1"/>
+      <!-- 边缘 -->
+      <geom type="cylinder" size="0.35 0.5" rgba="0.55 0.35 0.25 1" mass="1.5" contype="1" conaffinity="1"/>
+      <!-- 内部垫子 -->
+      <geom type="cylinder" size="0.3 0.55" rgba="0.7 0.5 0.4 1" mass="1" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 猫窝 -->
+    <body name="cat_bed" pos="2 -1.5 0.05">
+      <!-- 猫窝底座 -->
+      <geom type="box" size="0.35 0.35 0.03" rgba="0.5 0.3 0.2 1" mass="1" contype="1" conaffinity="1"/>
+      <!-- 猫窝边缘 -->
+      <geom type="box" size="0.32 0.32 0.1" rgba="0.45 0.25 0.15 1" mass="0.8" contype="1" conaffinity="1"/>
+      <!-- 猫窝内部垫子 -->
+      <geom type="box" size="0.28 0.28 0.05" rgba="0.65 0.45 0.35 1" mass="0.5" contype="1" conaffinity="1"/>
+=======
     <!-- 客厅家具 -->
     <body name="sofa" pos="0 1 0.2">
       <geom type="box" size="1.5 0.6 0.2" material="fabric" mass="40" contype="1" conaffinity="1"/>
@@ -159,6 +327,7 @@
     <body name="plant_large_living" pos="5 4 0.4">
       <geom type="cylinder" size="0.15 0.15" material="ceramic" mass="5" contype="1" conaffinity="1"/>
       <geom type="sphere" size="0.25" pos="0 0 0.35" rgba="0.2 0.6 0.2 1" mass="1" contype="1" conaffinity="1"/>
+>>>>>>> 7a105d9e2d50232e297989184f9b46a089beb0f7
     </body>
 
     <body name="rug" pos="0 -0.5 0.01">
@@ -166,11 +335,18 @@
     </body>
 
     <!-- 移动机器人 -->
+<<<<<<< HEAD
+    <body name="robot" pos="0 -2 0.15">
+      <freejoint/>
+      <geom name="robot_body" type="cylinder" size="0.2 0.15" material="metal" mass="15" contype="1" conaffinity="1"/>
+      <geom name="robot_sensor" type="cylinder" size="0.08 0.05" pos="0 0 0.2" rgba="0.2 0.2 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+=======
     <body name="robot" pos="1.5 0 0.15">
       <freejoint/>
       <geom name="robot_body" type="cylinder" size="0.2 0.15" material="metal" mass="15" contype="1" conaffinity="1"/>
       <geom name="robot_sensor" type="cylinder" size="0.08 0.05" pos="0 0 0.2" rgba="0.2 0.2 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
       <geom name="robot_front" type="box" size="0.05 0.02 0.08" pos="0.18 0 0.08" rgba="0.1 0.5 1.0 1" mass="0.1" contype="1" conaffinity="1"/>
+>>>>>>> 7a105d9e2d50232e297989184f9b46a089beb0f7
       <geom name="wheel_left" type="cylinder" size="0.04 0.02" pos="0 0.18 -0.05" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.5" contype="1" conaffinity="1"/>
       <geom name="wheel_right" type="cylinder" size="0.04 0.02" pos="0 -0.18 -0.05" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.5" contype="1" conaffinity="1"/>
       <geom name="caster_back" type="sphere" size="0.03" pos="-0.15 0 -0.12" rgba="0.3 0.3 0.3 1" mass="0.2" contype="1" conaffinity="1"/>
@@ -307,6 +483,58 @@
       <geom type="box" size="0.6 0.05 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
+<<<<<<< HEAD
+    <!-- 卧室家具 - 增强细节 -->
+    <body name="bed" pos="10 2.8 0.35">
+      <!-- 床架底座 -->
+      <geom type="box" size="0.95 1.25 0.08" pos="0 0 -0.12" material="darkwood" mass="35" contype="1" conaffinity="1"/>
+      <!-- 床垫 -->
+      <geom type="box" size="0.9 1.2 0.22" pos="0 0 0.11" material="fabric" mass="60" contype="1" conaffinity="1"/>
+      <!-- 床垫顶层（更柔软外观） -->
+      <geom type="box" size="0.88 1.18 0.03" pos="0 0 0.24" rgba="0.4 0.4 0.5 1" mass="8" contype="1" conaffinity="1"/>
+      <!-- 床头板 - 带面板细节 -->
+      <geom type="box" size="0.95 0.06 0.65" pos="0 1.17 0.45" material="darkwood" mass="20" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.3 0.04 0.55" pos="-0.3 1.17 0.47" rgba="0.5 0.35 0.2 1" mass="4" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.3 0.04 0.55" pos="0.3 1.17 0.47" rgba="0.5 0.35 0.2 1" mass="4" contype="1" conaffinity="1"/>
+      <!-- 枕头 - 床头的两个枕头 -->
+      <geom type="box" size="0.35 0.18 0.14" pos="-0.27 1.05 0.35" rgba="0.9 0.9 0.95 1" mass="2" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.35 0.18 0.14" pos="0.27 1.05 0.35" rgba="0.9 0.9 0.95 1" mass="2" contype="1" conaffinity="1"/>
+      <!-- 床腿 - 4个木质腿 -->
+      <geom type="cylinder" size="0.05 0.15" pos="-0.85 -1.15 -0.27" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.05 0.15" pos="0.85 -1.15 -0.27" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.05 0.15" pos="-0.85 1.15 -0.27" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.05 0.15" pos="0.85 1.15 -0.27" material="darkwood" mass="2" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="wardrobe" pos="13.2 1 1.1">
+      <!-- 主衣柜柜体 -->
+      <geom type="box" size="0.4 1.2 1.1" material="wood" mass="130" contype="1" conaffinity="1"/>
+      <!-- 门缝线 - 中央垂直线 -->
+      <geom type="box" size="0.01 1.18 1.08" pos="0 0 0" rgba="0.3 0.2 0.1 1" mass="0.6" contype="1" conaffinity="1"/>
+      <!-- 左门把手 -->
+      <geom type="box" size="0.025 0.025 0.15" pos="-0.18 -0.5 0.4" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 右门把手 -->
+      <geom type="box" size="0.025 0.025 0.15" pos="0.18 0.5 0.4" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 顶部装饰条 -->
+      <geom type="box" size="0.41 0.025 0.025" pos="0 1.2 1.09" rgba="0.5 0.35 0.2 1" mass="0.6" contype="1" conaffinity="1"/>
+      <!-- 底部基座装饰条 -->
+      <geom type="box" size="0.41 0.025 0.025" pos="0 -1.2 0.01" rgba="0.5 0.35 0.2 1" mass="0.6" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="nightstand_left" pos="8.3 2.8 0.35">
+      <!-- 主柜体 -->
+      <geom type="box" size="0.3 0.3 0.35" material="wood" mass="12" contype="1" conaffinity="1"/>
+      <!-- 顶部抽屉 -->
+      <geom type="box" size="0.28 0.025 0.09" pos="0 0 0.26" rgba="0.55 0.4 0.25 1" mass="0.7" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.07" pos="0.18 0 0.26" rgba="0.6 0.5 0.3 1" mass="0.3" contype="1" conaffinity="1"/>
+      <!-- 底部抽屉 -->
+      <geom type="box" size="0.28 0.025 0.09" pos="0 0 0.14" rgba="0.55 0.4 0.25 1" mass="0.7" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.07" pos="0.18 0 0.14" rgba="0.6 0.5 0.3 1" mass="0.3" contype="1" conaffinity="1"/>
+      <!-- 顶部表面装饰条 -->
+      <geom type="box" size="0.31 0.31 0.01" pos="0 0 0.355" rgba="0.5 0.35 0.2 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 底部基座装饰条 -->
+      <geom type="box" size="0.31 0.31 0.01" pos="0 0 -0.005" rgba="0.5 0.35 0.2 1" mass="0.4" contype="1" conaffinity="1"/>
+=======
     <!-- 卧室家具 -->
     <body name="bed" pos="10 2.8 0.35">
       <geom type="box" size="0.9 1.2 0.25" pos="0 0 0.1" material="fabric" mass="60" contype="1" conaffinity="1"/>
@@ -320,6 +548,7 @@
 
     <body name="nightstand_left" pos="8.3 2.8 0.35">
       <geom type="box" size="0.3 0.3 0.35" material="wood" mass="15" contype="1" conaffinity="1"/>
+>>>>>>> 7a105d9e2d50232e297989184f9b46a089beb0f7
     </body>
 
     <body name="lamp_left" pos="8.3 2.8 0.75">
@@ -329,7 +558,29 @@
     </body>
 
     <body name="dresser" pos="10 -3.3 0.5">
+<<<<<<< HEAD
+      <!-- 主梳妆台柜体 -->
+      <geom type="box" size="1.0 0.35 0.5" material="wood" mass="50" contype="1" conaffinity="1"/>
+      <!-- 顶部抽屉 -->
+      <geom type="box" size="0.48 0.025 0.12" pos="-0.25 0 0.38" rgba="0.55 0.4 0.25 1" mass="1" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.1" pos="0.1 0 0.38" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 中间抽屉 -->
+      <geom type="box" size="0.48 0.025 0.12" pos="-0.25 0 0.24" rgba="0.55 0.4 0.25 1" mass="1" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.1" pos="0.1 0 0.24" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 底部抽屉 -->
+      <geom type="box" size="0.48 0.025 0.12" pos="-0.25 0 0.1" rgba="0.55 0.4 0.25 1" mass="1" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.025 0.025 0.1" pos="0.1 0 0.1" rgba="0.6 0.5 0.3 1" mass="0.4" contype="1" conaffinity="1"/>
+      <!-- 顶部表面装饰条 -->
+      <geom type="box" size="1.01 0.36 0.01" pos="0 0 0.505" rgba="0.5 0.35 0.2 1" mass="0.6" contype="1" conaffinity="1"/>
+      <!-- 底部基座装饰条 -->
+      <geom type="box" size="1.01 0.36 0.01" pos="0 0 -0.005" rgba="0.5 0.35 0.2 1" mass="0.6" contype="1" conaffinity="1"/>
+      <!-- 镜框 -->
+      <geom type="box" size="0.6 0.02 0.6" pos="0 0.18 0.81" rgba="0.5 0.35 0.2 1" mass="2" contype="1" conaffinity="1"/>
+      <!-- 镜面玻璃 -->
+      <geom type="box" size="0.56 0.01 0.56" pos="0 0.18 0.81" rgba="0.9 0.95 1.0 0.7" mass="0.5" contype="1" conaffinity="1"/>
+=======
       <geom type="box" size="1.0 0.35 0.5" material="wood" mass="60" contype="1" conaffinity="1"/>
+>>>>>>> 7a105d9e2d50232e297989184f9b46a089beb0f7
     </body>
 
     <!--
@@ -368,6 +619,73 @@
       <geom type="box" size="0.6 0.05 0.05" material="door_frame" contype="1" conaffinity="1"/>
     </body>
 
+<<<<<<< HEAD
+    <!-- 书房家具（简化） - 增强细节 -->
+    <body name="office_desk" pos="-14.5 -7 0.37">
+      <!-- 桌架底座 -->
+      <geom type="box" size="1.0 0.5 0.03" pos="0 0 0.34" material="wood" mass="35" contype="1" conaffinity="1"/>
+      <!-- 桌腿 -->
+      <geom type="cylinder" size="0.04 0.35" pos="-0.9 -0.45 0" material="metal" mass="2.5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.35" pos="0.9 -0.45 0" material="metal" mass="2.5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.35" pos="-0.9 0.45 0" material="metal" mass="2.5" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.04 0.35" pos="0.9 0.45 0" material="metal" mass="2.5" contype="1" conaffinity="1"/>
+      <!-- 左侧抽屉 -->
+      <geom type="box" size="0.25 0.02 0.08" pos="-0.65 0 0.4" rgba="0.55 0.4 0.25 1" mass="1" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.02 0.02 0.06" pos="-0.5 0 0.4" rgba="0.6 0.5 0.3 1" mass="0.3" contype="1" conaffinity="1"/>
+      <!-- 顶部表面装饰条 -->
+      <geom type="box" size="1.01 0.51 0.01" pos="0 0 0.355" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="office_chair" pos="-14 -6.3 0.25">
+      <!-- 椅子座位 -->
+      <geom type="cylinder" size="0.22 0.03" pos="0 0 0.22" material="fabric" mass="4" contype="1" conaffinity="1"/>
+      <!-- 椅子靠背 -->
+      <geom type="box" size="0.22 0.04 0.25" pos="0 0.12 0.4" material="fabric" mass="3" contype="1" conaffinity="1"/>
+      <!-- 椅子靠背软垫 -->
+      <geom type="box" size="0.2 0.03 0.22" pos="0 0.12 0.42" rgba="0.35 0.35 0.55 1" mass="1.5" contype="1" conaffinity="1"/>
+      <!-- 左扶手 -->
+      <geom type="box" size="0.03 0.08 0.06" pos="-0.2 0 0.3" material="fabric" mass="0.8" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.02 0.06 0.04" pos="-0.2 0 0.35" rgba="0.35 0.35 0.55 1" mass="0.3" contype="1" conaffinity="1"/>
+      <!-- 右扶手 -->
+      <geom type="box" size="0.03 0.08 0.06" pos="0.2 0 0.3" material="fabric" mass="0.8" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.02 0.06 0.04" pos="0.2 0 0.35" rgba="0.35 0.35 0.55 1" mass="0.3" contype="1" conaffinity="1"/>
+      <!-- 椅子杆 -->
+      <geom type="cylinder" size="0.04 0.25" material="metal" mass="3" contype="1" conaffinity="1"/>
+      <!-- 椅子底座（五角星形） -->
+      <geom type="box" size="0.35 0.02 0.02" pos="0 0 0" rgba="0.2 0.2 0.2 1" mass="1" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.02 0.35 0.02" pos="0 0 0" rgba="0.2 0.2 0.2 1" mass="1" contype="1" conaffinity="1"/>
+      <!-- 椅子轮子 -->
+      <geom type="cylinder" size="0.03 0.03" pos="0 0.3 -0.03" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.03 0.03" pos="0 -0.3 -0.03" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.03 0.03" pos="0.3 0 -0.03" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.03 0.03" pos="-0.3 0 -0.03" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.2" contype="1" conaffinity="1"/>
+      <geom type="cylinder" size="0.03 0.03" pos="0 0 -0.03" quat="0.707 0 0.707 0" rgba="0.1 0.1 0.1 1" mass="0.2" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="bookshelf_study" pos="-11.3 -6.5 1.0">
+      <!-- 主书架柜体 -->
+      <geom type="box" size="0.3 1.5 1.0" material="wood" mass="70" contype="1" conaffinity="1"/>
+      <!-- 隔板1（底部） -->
+      <geom type="box" size="0.28 0.02 0.02" pos="0 -0.6 0.01" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 隔板2 -->
+      <geom type="box" size="0.28 0.02 0.02" pos="0 -0.3 0.34" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 隔板3 -->
+      <geom type="box" size="0.28 0.02 0.02" pos="0 0 0.67" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 隔板4 -->
+      <geom type="box" size="0.28 0.02 0.02" pos="0 0.3 0.34" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 隔板5（顶部） -->
+      <geom type="box" size="0.28 0.02 0.02" pos="0 0.6 0.01" rgba="0.5 0.35 0.2 1" mass="0.5" contype="1" conaffinity="1"/>
+      <!-- 顶部装饰条 -->
+      <geom type="box" size="0.31 0.02 0.02" pos="0 0.75 0.99" rgba="0.5 0.35 0.2 1" mass="0.6" contype="1" conaffinity="1"/>
+      <!-- 底部基座装饰条 -->
+      <geom type="box" size="0.31 0.02 0.02" pos="0 -0.75 0.01" rgba="0.5 0.35 0.2 1" mass="0.6" contype="1" conaffinity="1"/>
+      <!-- 隔板上的书籍（简化） -->
+      <geom type="box" size="0.06 0.15 0.18" pos="0.08 -0.6 0.21" rgba="0.8 0.2 0.2 1" mass="0.3" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.06 0.15 0.18" pos="-0.05 -0.6 0.21" rgba="0.2 0.5 0.7 1" mass="0.3" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.06 0.15 0.18" pos="0.1 0 0.54" rgba="0.6 0.3 0.6 1" mass="0.3" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.06 0.15 0.18" pos="-0.08 0 0.54" rgba="0.3 0.6 0.4 1" mass="0.3" contype="1" conaffinity="1"/>
+      <geom type="box" size="0.06 0.15 0.18" pos="0.06 0.3 0.21" rgba="0.7 0.4 0.2 1" mass="0.3" contype="1" conaffinity="1"/>
+=======
     <!-- 书房家具（简化） -->
     <body name="office_desk" pos="-14.5 -7 0.37">
       <geom type="box" size="1.0 0.5 0.03" pos="0 0 0.34" material="wood" mass="40" contype="1" conaffinity="1"/>
@@ -382,6 +700,7 @@
 
     <body name="bookshelf_study" pos="-11.3 -6.5 1.0">
       <geom type="box" size="0.3 1.5 1.0" material="wood" mass="80" contype="1" conaffinity="1"/>
+>>>>>>> 7a105d9e2d50232e297989184f9b46a089beb0f7
     </body>
 
     <!--
